@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/gun.png" type="Texture" id=1]
+[ext_resource path="res://Gun.gd" type="Script" id=2]
+[ext_resource path="res://Bullet.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 29.25, 10.25 )
+
+[node name="Gun" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 0
+mass = 0.01
+gravity_scale = 0.0
+script = ExtResource( 2 )
+Bullet = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -1, 4 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
