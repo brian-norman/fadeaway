@@ -2,22 +2,14 @@ extends KinematicBody2D
 
 
 export (int) var speed = 200
-export (int) var bullet_speed = 2000
+export (int) var bullet_speed = 1000
+
 
 var velocity = Vector2()
 
-var bullet = preload("res://Bullet.tscn")
 
-
-func _process(delta):
+func _process(_delta):
 	look_at(get_global_mouse_position())
-	
-	if Input.is_action_pressed("fire"):
-		var bulletInstance = bullet.instance()
-		bulletInstance.position = global_position
-		bulletInstance.rotation_degrees = rotation_degrees
-		bulletInstance.apply_impulse(Vector2(), Vector2(bullet_speed, 0).rotated(rotation))
-		get_tree().root.add_child(bulletInstance)
 
 
 func _physics_process(_delta):

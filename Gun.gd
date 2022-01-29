@@ -1,10 +1,21 @@
-extends RigidBody2D
+extends StaticBody2D
 
 
 export (PackedScene) var Bullet
+export (float) var fire_rate = 0.3
 
-var BULLET_SPEED = 200
+var bullet_speed = 1000
+var can_fire = true
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+
+func _process(_delta):
+	if Input.is_action_pressed("fire") and can_fire:
+		var bulletInstance = Bullet.instance()
+		bulletInstance.position = $BulletPoint.global_position
+		bulletInstance.rotation_degrees = rotation_degrees
+		bulletInstance.apply_impulse(Vector2(), Vector2(bullet_speed, 0).rotated(global_rotation))
+		get_tree().root.add_child(bulletInstance)
+		
+		can_fire = false
+		yield(get_tree().create_timer(fire_rate), "timeout")
+		can_fire = true
