@@ -10,7 +10,7 @@ var can_fire = true
 
 func _process(_delta):
 	if Input.is_action_pressed("fire") and can_fire:
-		$GunshotSound.play()
+		$Gunshot.play()
 		var bulletInstance = Bullet.instance()
 		bulletInstance.position = $BulletPoint.global_position
 		bulletInstance.rotation_degrees = rotation_degrees

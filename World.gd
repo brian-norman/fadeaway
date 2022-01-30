@@ -23,3 +23,13 @@ func _on_LightningTimer_timeout():
 	yield(get_tree().create_timer(LIGHTNING_DURATION), "timeout")	
 	$LevelLight.energy = BASE_LIGHT_ENERGY
 	$LightningTimer.start()
+
+
+func _on_House_body_entered(body):
+	if body.is_in_group("player"):
+		$House/HouseLight.enabled = true
+
+
+func _on_House_body_exited(body):
+	if body.is_in_group("player"):
+		$House/HouseLight.enabled = false
