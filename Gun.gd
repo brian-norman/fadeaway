@@ -2,7 +2,7 @@ extends StaticBody2D
 
 
 export (PackedScene) var Bullet
-export (float) var fire_rate = 0.3
+export (float) var fire_rate = 0.5
 
 var bullet_speed = 1000
 var can_fire = true
@@ -10,6 +10,7 @@ var can_fire = true
 
 func _process(_delta):
 	if Input.is_action_pressed("fire") and can_fire:
+		$GunshotSound.play()
 		var bulletInstance = Bullet.instance()
 		bulletInstance.position = $BulletPoint.global_position
 		bulletInstance.rotation_degrees = rotation_degrees
