@@ -41,5 +41,9 @@ func move():
 	velocity = move_and_slide(velocity)
 
 
-func die():
+func die(player_id):
+	if player_id == get_tree().get_network_unique_id():
+		gamestate.kills += 1
+	else:
+		gamestate.players_kills[player_id] += 1
 	queue_free()

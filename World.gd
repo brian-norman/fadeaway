@@ -10,6 +10,14 @@ export (float) var BRIGHT_LIGHT_ENERGY = 1
 func _ready():
 	randomize()
 	$LevelLight.energy = BASE_LIGHT_ENERGY
+	$HUD.hide()
+
+
+func _input(event):
+	if Input.is_key_pressed(KEY_TAB):
+		$HUD.show()
+	else:
+		$HUD.hide()
 
 
 func _on_EnemyTimer_timeout():

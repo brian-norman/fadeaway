@@ -1,32 +1,36 @@
 extends Node
 
-# Default game server port. Can be any number between 1024 and 49151.
+# Default game server port. Can be any number between 1024 and 49151
 # Not on the list of registered or common ports as of November 2020:
 # https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
 const DEFAULT_PORT = 10568
 
-# Max number of players.
+# Max number of players
 const MAX_PEERS = 4
 
 var peer = null
 
-# Name for my player.
+# Name and stats for my player
 var player_name = "The Warrior"
+var kills = 0
 
-# Names for remote players in id:name format.
+# Names for remote players in id:name format
 var players = {}
 var players_ready = []
 
-# Signals to let lobby GUI know what's going on.
+# Kills for players in id:kills format
+var players_kills = {}
+
+# Signals to let lobby GUI know what's going on
 signal player_list_changed()
 signal connection_failed()
 signal connection_succeeded()
 signal game_ended()
 signal game_error(what)
 
-# Callback from SceneTree.
+# Callback from SceneTree
 func _player_connected(id):
-	# Registration of a client beings here, tell the connected player that we are here.
+	# Registration of a client beings here, tell the connected player that we are here
 	rpc_id(id, "register_player", player_name)
 
 
@@ -65,11 +69,13 @@ remote func register_player(new_player_name):
 	var id = get_tree().get_rpc_sender_id()
 	print(id)
 	players[id] = new_player_name
+	players_kills[id] = 0
 	emit_signal("player_list_changed")
 
 
 func unregister_player(id):
 	players.erase(id)
+	players_kills.erase(id)
 	emit_signal("player_list_changed")
 
 
@@ -168,6 +174,7 @@ func end_game():
 
 	emit_signal("game_ended")
 	players.clear()
+	players_kills.clear()
 
 
 func _ready():

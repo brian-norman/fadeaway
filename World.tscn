@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World.gd" type="Script" id=2]
 [ext_resource path="res://assets/art/tiles.png" type="Texture" id=3]
 [ext_resource path="res://Enemy.tscn" type="PackedScene" id=4]
@@ -147,6 +148,9 @@ position = Vector2( 272, 336 )
 position = Vector2( 352, 336 )
 
 [node name="Players" type="Node2D" parent="."]
+
+[node name="HUD" parent="." instance=ExtResource( 1 )]
+visible = false
 
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_EnemyTimer_timeout"]
 [connection signal="timeout" from="LightningTimer" to="." method="_on_LightningTimer_timeout"]
