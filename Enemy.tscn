@@ -27,5 +27,3 @@ points = PoolVector2Array( -2, -17, 10, 15 )
 stream = ExtResource( 3 )
 volume_db = -24.0
 autoplay = true
-
-[connection signal="input_event" from="." to="." method="_on_Enemy_input_event"]

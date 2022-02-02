@@ -3,7 +3,7 @@ extends Node
 # Default game server port. Can be any number between 1024 and 49151
 # Not on the list of registered or common ports as of November 2020:
 # https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
-const DEFAULT_PORT = 10568
+const DEFAULT_PORT = 10567
 
 # Max number of players
 const MAX_PEERS = 4
@@ -13,6 +13,7 @@ var peer = null
 # Name and stats for my player
 var player_name = "The Warrior"
 var kills = 0
+var deaths = 0
 
 # Names for remote players in id:name format
 var players = {}
@@ -20,6 +21,8 @@ var players_ready = []
 
 # Kills for players in id:kills format
 var players_kills = {}
+# Deaths for players in id:deaths format
+var players_deaths = {}
 
 # Signals to let lobby GUI know what's going on
 signal player_list_changed()
@@ -70,12 +73,14 @@ remote func register_player(new_player_name):
 	print(id)
 	players[id] = new_player_name
 	players_kills[id] = 0
+	players_deaths[id] = 0
 	emit_signal("player_list_changed")
 
 
 func unregister_player(id):
 	players.erase(id)
 	players_kills.erase(id)
+	players_deaths.erase(id)
 	emit_signal("player_list_changed")
 
 
@@ -175,6 +180,7 @@ func end_game():
 	emit_signal("game_ended")
 	players.clear()
 	players_kills.clear()
+	players_deaths.clear()
 
 
 func _ready():

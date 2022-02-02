@@ -43,8 +43,25 @@ func _physics_process(_delta):
 	
 	move_and_slide(direction * speed)
 	
+	for i in get_slide_count():
+		var collision = get_slide_collision(i)
+		if collision.collider.name == "Enemy":
+			rpc("die", get_tree().get_network_unique_id())
+			break
+
+	
 	if not is_network_master():
 		puppet_pos = position # To avoid jitter
+
+
+remotesync func die(player_id):
+	if int(player_id) == get_tree().get_network_unique_id():
+		position = get_node("/root/World/SpawnPoints/0").position
+		rset("puppet_pos", position)
+		gamestate.deaths += 1
+	else:
+		position = puppet_pos
+		gamestate.players_deaths[player_id] += 1
 
 
 func set_player_name(name):
