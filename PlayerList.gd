@@ -8,7 +8,7 @@ func _ready():
 	update_scores()
 
 
-func _process(delta):
+func _process(_delta):
 	clear()
 	update_scores()
 

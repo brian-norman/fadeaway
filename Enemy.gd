@@ -10,13 +10,12 @@ var velocity = Vector2()
 
 
 func _ready():
-	randomize()
 	yield(get_tree(), "idle_frame")
 	if get_tree().has_group("LevelNavigation"):
 		levelNavigation = get_tree().get_nodes_in_group("LevelNavigation")[0]
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	$Line2D.global_position = Vector2()
 	if target_player and levelNavigation:
 		generate_path()
@@ -32,9 +31,8 @@ func navigate():
 
 
 func generate_path():
-	if target_player and levelNavigation:
-		path = levelNavigation.get_simple_path(global_position, target_player.global_position)
-		$Line2D.points = path
+	path = levelNavigation.get_simple_path(global_position, target_player.global_position)
+	$Line2D.points = path
 
 
 func move():

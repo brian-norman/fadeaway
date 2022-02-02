@@ -1,5 +1,5 @@
 extends Node2D
 
 
-func _process(delta):
+func _process(_delta):
 	global_rotation = 0

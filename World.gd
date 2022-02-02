@@ -13,7 +13,7 @@ func _ready():
 	$HUD.hide()
 
 
-func _input(event):
+func _input(_event):
 	if Input.is_key_pressed(KEY_TAB):
 		$HUD.show()
 	else:
