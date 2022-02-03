@@ -25,5 +25,5 @@ points = PoolVector2Array( -2, -17, 10, 15 )
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
-volume_db = -20.0
+volume_db = -15.0
 autoplay = true

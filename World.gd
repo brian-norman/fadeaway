@@ -2,7 +2,6 @@ extends Node2D
 
 
 export (PackedScene) var Enemy
-export (float) var LIGHTNING_DURATION = 0.5
 export (float) var BASE_LIGHT_ENERGY = 0.1
 export (float) var BRIGHT_LIGHT_ENERGY = 1
 
@@ -29,9 +28,20 @@ func _on_EnemyTimer_timeout():
 
 
 func _on_LightningTimer_timeout():
-	$LevelLight.energy = BRIGHT_LIGHT_ENERGY
-	yield(get_tree().create_timer(LIGHTNING_DURATION), "timeout")	
-	$LevelLight.energy = BASE_LIGHT_ENERGY
+	$Thunder.play()
+	var lightning_brightness_array = []
+	for i in range(3):
+		lightning_brightness_array.append(rand_range(BASE_LIGHT_ENERGY, BRIGHT_LIGHT_ENERGY))
+	
+	var lightning_delay_array = []
+	for i in range(3):
+		lightning_delay_array.append(rand_range(0.5, 1.5))
+	
+	for i in range(3):
+		$LevelLight.energy = lightning_brightness_array[i]
+		yield(get_tree().create_timer(lightning_delay_array[i]), "timeout")
+		$LevelLight.energy = BASE_LIGHT_ENERGY
+
 	$LightningTimer.start()
 
 
