@@ -112,9 +112,6 @@ autostart = true
 position = Vector2( 960, 544 )
 texture = ExtResource( 5 )
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color( 0, 0, 0, 1 )
-
 [node name="LightningTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
@@ -150,7 +147,10 @@ position = Vector2( 352, 336 )
 [node name="Players" type="Node2D" parent="."]
 
 [node name="HUD" parent="." instance=ExtResource( 1 )]
-visible = false
+light_mask = 2
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0, 0, 0, 1 )
 
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_EnemyTimer_timeout"]
 [connection signal="timeout" from="LightningTimer" to="." method="_on_LightningTimer_timeout"]
