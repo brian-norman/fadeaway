@@ -43,15 +43,13 @@ func _physics_process(_delta):
 	
 	var _velocity = move_and_slide(direction * speed)
 	
-	for i in get_slide_count():
-		var collision = get_slide_collision(i)
-		if collision.collider.name == "Enemy":
-			rpc("die", get_tree().get_network_unique_id())
-			break
-	
-	
 	if not is_network_master():
 		puppet_pos = position # To avoid jitter
+
+
+func _on_Area2D_body_entered(body):
+	if body.is_in_group("enemy"):
+		rpc("die", get_tree().get_network_unique_id())
 
 
 remotesync func die(player_id):

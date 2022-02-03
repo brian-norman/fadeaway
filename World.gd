@@ -3,7 +3,7 @@ extends Node2D
 
 export (PackedScene) var Enemy
 export (float) var LIGHTNING_DURATION = 0.5
-export (float) var BASE_LIGHT_ENERGY = 0.3
+export (float) var BASE_LIGHT_ENERGY = 0.1
 export (float) var BRIGHT_LIGHT_ENERGY = 1
 
 
