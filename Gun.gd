@@ -24,3 +24,9 @@ remotesync func shoot(player_id, bullet_position, bullet_rotation_degrees, playe
 	bulletInstance.rotation_degrees = bullet_rotation_degrees
 	bulletInstance.apply_impulse(Vector2(), Vector2(bullet_speed, 0).rotated(player_global_rotation))
 	get_tree().root.add_child(bulletInstance)
+
+
+func drop(position):
+	# TODO: Drop this gun onto the World
+	queue_free()
+	

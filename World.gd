@@ -30,11 +30,11 @@ func _on_EnemyTimer_timeout():
 func _on_LightningTimer_timeout():
 	$Thunder.play()
 	var lightning_brightness_array = []
-	for i in range(3):
+	for _i in range(3):
 		lightning_brightness_array.append(rand_range(BASE_LIGHT_ENERGY, BRIGHT_LIGHT_ENERGY))
 	
 	var lightning_delay_array = []
-	for i in range(3):
+	for _i in range(3):
 		lightning_delay_array.append(rand_range(0.5, 1.5))
 	
 	for i in range(3):

@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
 
+export (PackedScene) var Flashlight
+
 export (int) var speed = 200
 export (int) var bullet_speed = 1000
 
@@ -9,6 +11,8 @@ var velocity = Vector2()
 puppet var puppet_pos = Vector2()
 puppet var puppet_velocity = Vector2()
 puppet var puppet_look_direction = Vector2()
+
+var has_flashlight = false
 
 
 func _ready():
@@ -45,6 +49,18 @@ func _physics_process(_delta):
 	
 	if not is_network_master():
 		puppet_pos = position # To avoid jitter
+
+
+# TODO: This is weird
+func _input(event):
+	if event.is_action_pressed("pick_up") and not has_flashlight:
+		var flashlight = Flashlight.instance()
+		flashlight.on_floor = false
+		add_child(flashlight)
+		$Gun.drop(position)
+		has_flashlight = true
+	if event.is_action_pressed("switch_flashlight") and has_flashlight:
+		$Flashlight.switch()
 
 
 func _on_Area2D_body_entered(body):

@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/art/flashlight-ray.png" type="Texture" id=1]
+[ext_resource path="res://assets/art/flashlight.png" type="Texture" id=2]
+[ext_resource path="res://Flashlight.gd" type="Script" id=3]
+[ext_resource path="res://assets/font/JMH Typewriter.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://PickExplainer.gd" type="Script" id=5]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 7.0
+height = 44.0
+
+[sub_resource type="DynamicFont" id=2]
+size = 18
+font_data = ExtResource( 4 )
+
+[node name="Flashlight" type="Area2D"]
+collision_layer = 256
+script = ExtResource( 3 )
+
+[node name="Light" type="Light2D" parent="."]
+position = Vector2( 162, 0 )
+scale = Vector2( 3, 2 )
+texture = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="PickExplainer" type="CanvasLayer" parent="."]
+script = ExtResource( 5 )
+
+[node name="Panel" type="Panel" parent="PickExplainer"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -122.0
+margin_top = -24.0
+margin_right = 286.0
+margin_bottom = 57.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PickExplainer/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -151.0
+margin_top = -25.5
+margin_right = 151.0
+margin_bottom = 25.5
+custom_fonts/font = SubResource( 2 )
+text = "Click E to pick up flashlight.
+Left-click to switch on or off."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="body_entered" from="." to="." method="_on_Flashlight_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Flashlight_body_exited"]
