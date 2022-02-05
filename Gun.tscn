@@ -1,16 +1,21 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/art/gun.png" type="Texture" id=1]
 [ext_resource path="res://Gun.gd" type="Script" id=2]
 [ext_resource path="res://Bullet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/sound/gunshot.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/font/JMH Typewriter.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://PickExplainer.gd" type="Script" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 29.25, 10.25 )
 
-[node name="Gun" type="StaticBody2D"]
+[sub_resource type="DynamicFont" id=2]
+size = 18
+font_data = ExtResource( 5 )
+
+[node name="Gun" type="Area2D"]
 collision_layer = 2
-collision_mask = 0
 script = ExtResource( 2 )
 Bullet = ExtResource( 3 )
 
@@ -27,3 +32,39 @@ position = Vector2( 30, -3 )
 [node name="Gunshot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
 volume_db = -10.0
+
+[node name="PickExplainer" type="CanvasLayer" parent="."]
+script = ExtResource( 6 )
+
+[node name="Panel" type="Panel" parent="PickExplainer"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -40.0
+margin_right = 200.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PickExplainer/Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -157.5
+margin_top = -29.0
+margin_right = 157.5
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 2 )
+text = "Click E to pick up gun.
+Left-click to shoot."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="body_entered" from="." to="." method="_on_Gun_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Gun_body_exited"]

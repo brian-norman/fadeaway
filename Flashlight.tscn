@@ -15,7 +15,7 @@ size = 18
 font_data = ExtResource( 4 )
 
 [node name="Flashlight" type="Area2D"]
-collision_layer = 256
+collision_layer = 2
 script = ExtResource( 3 )
 
 [node name="Light" type="Light2D" parent="."]
@@ -34,15 +34,14 @@ shape = SubResource( 1 )
 script = ExtResource( 5 )
 
 [node name="Panel" type="Panel" parent="PickExplainer"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -122.0
 margin_top = -24.0
-margin_right = 286.0
-margin_bottom = 57.0
+margin_right = 278.0
+margin_bottom = 56.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

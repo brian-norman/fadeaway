@@ -1,15 +1,16 @@
-extends StaticBody2D
+extends Area2D
 
 
 export (PackedScene) var Bullet
 export (float) var fire_rate = 0.5
+export (bool) var on_floor = true
 
 var bullet_speed = 2000
 var can_fire = true
 
 
 func _process(_delta):
-	if Input.is_action_pressed("fire") and can_fire and is_network_master():
+	if Input.is_action_pressed("fire") and can_fire and not on_floor and is_network_master():
 		rpc("shoot", get_tree().get_network_unique_id(), $BulletPoint.global_position, rotation_degrees, global_rotation)
 		can_fire = false
 		yield(get_tree().create_timer(fire_rate), "timeout")
@@ -27,6 +28,17 @@ remotesync func shoot(player_id, bullet_position, bullet_rotation_degrees, playe
 
 
 func drop(position):
-	# TODO: Drop this gun onto the World
+	var gun = load("res://Gun.tscn").instance()
+	gun.position = position
+	get_tree().root.get_node("World").add_child(gun)
 	queue_free()
-	
+
+
+func _on_Gun_body_entered(body):
+	if body.is_in_group("player") and on_floor and is_network_master():
+		$PickExplainer.show(position)
+
+
+func _on_Gun_body_exited(body):
+	if body.is_in_group("player") and on_floor and is_network_master():
+		$PickExplainer.hide()
