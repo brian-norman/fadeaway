@@ -165,3 +165,4 @@ position = Vector2( 279, 385 )
 [connection signal="timeout" from="LightningTimer" to="." method="_on_LightningTimer_timeout"]
 [connection signal="body_entered" from="House" to="." method="_on_House_body_entered"]
 [connection signal="body_exited" from="House" to="." method="_on_House_body_exited"]
+[connection signal="pick_up" from="Flashlight" to="." method="_on_Flashlight_pick_up"]

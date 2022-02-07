@@ -54,8 +54,6 @@ func _physics_process(_delta):
 
 # TODO: This is weird
 func _input(event):
-	if event.is_action_pressed("pick_up") and not holding == "flashlight" and is_network_master():
-		rpc("pick_up_flashlight", get_tree().get_network_unique_id())
 	if event.is_action_pressed("switch_flashlight") and holding == "flashlight" and is_network_master():
 		$Flashlight.switch()
 
@@ -63,6 +61,10 @@ func _input(event):
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("enemy"):
 		rpc("die", get_tree().get_network_unique_id())
+
+
+func on_pick_up_flashlight():
+	rpc("pick_up_flashlight", get_tree().get_network_unique_id())
 
 
 remotesync func pick_up_flashlight(player_id):
