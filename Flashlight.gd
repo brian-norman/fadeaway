@@ -9,7 +9,10 @@ func _ready():
 
 
 func switch():
-	print('switching')
+	rpc("switch_light")
+
+
+remotesync func switch_light():
 	on = not on
 	$Light.enabled = on
 
