@@ -28,20 +28,24 @@ func _on_EnemyTimer_timeout():
 
 
 func _on_LightningTimer_timeout():
+	if is_network_master():
+		var lightning_brightness_array = []
+		for _i in range(3):
+			lightning_brightness_array.append(rand_range(BASE_LIGHT_ENERGY, BRIGHT_LIGHT_ENERGY))
+		
+		var lightning_delay_array = []
+		for _i in range(3):
+			lightning_delay_array.append(rand_range(0.5, 1.5))
+		
+		rpc("lightning", lightning_brightness_array, lightning_delay_array)
+
+
+remotesync func lightning(lightning_brightness_array, lightning_delay_array):
 	$Thunder.play()
-	var lightning_brightness_array = []
-	for _i in range(3):
-		lightning_brightness_array.append(rand_range(BASE_LIGHT_ENERGY, BRIGHT_LIGHT_ENERGY))
-	
-	var lightning_delay_array = []
-	for _i in range(3):
-		lightning_delay_array.append(rand_range(0.5, 1.5))
-	
 	for i in range(3):
 		$LevelLight.energy = lightning_brightness_array[i]
 		yield(get_tree().create_timer(lightning_delay_array[i]), "timeout")
 		$LevelLight.energy = BASE_LIGHT_ENERGY
-
 	$LightningTimer.start()
 
 
