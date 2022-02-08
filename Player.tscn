@@ -48,4 +48,7 @@ collision_mask = 17
 [node name="AreaCollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
 
+[node name="ObjectPos" type="Position2D" parent="."]
+position = Vector2( 30, -5 )
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

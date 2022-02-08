@@ -72,7 +72,7 @@ remotesync func gun_pick_up(player_name, node_name):
 
 func pick_up_gun():
 	$Gun.on_floor = false
-	$Gun.position = $Flashlight.position	   # TODO: Switch to using an "Held Object Position2D" fixed on the Player
+	$Gun.position = $ObjectPos.position
 	holding = "gun"
 	drop_flashlight()
 
@@ -85,7 +85,7 @@ func drop_gun():
 
 func pick_up_flashlight():
 	$Flashlight.on_floor = false
-	$Flashlight.position = $Gun.position
+	$Flashlight.position = $ObjectPos.position
 	holding = "flashlight"
 	drop_gun()
 
