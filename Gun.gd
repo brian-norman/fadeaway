@@ -20,8 +20,7 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("pick_up") and hovered and is_network_master():
-		emit_signal("pick_up", hovering_player_name)
-		queue_free()
+		emit_signal("pick_up", hovering_player_name, self)
 
 
 func _process(_delta):

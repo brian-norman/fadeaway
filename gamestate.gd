@@ -189,3 +189,14 @@ func _ready():
 	get_tree().connect("connected_to_server", self, "_connected_ok")
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
+
+
+### UTILITY FUNCTIONS ###
+
+func reparent(child: Node, new_parent: Node) -> void:
+	if not child or not new_parent:
+		return
+	var old_parent = child.get_parent()
+	old_parent.remove_child(child)
+	new_parent.add_child(child)
+	child.owner = new_parent.owner

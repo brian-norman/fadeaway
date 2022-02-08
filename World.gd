@@ -64,9 +64,11 @@ remotesync func spawn_enemy(position, target_player_name):
 	add_child(enemy)
 
 
+func _on_Flashlight_pick_up(player_name, node):
+	var player = get_tree().root.get_node("World/Players/" + player_name)
+	gamestate.reparent(node, player)
+	player.on_pick_up_flashlight()
+
+
 func random_number(from: int, to: int):
 	return range(from, to + 1)[randi() % range(from, to + 1).size()]
-
-
-func _on_Flashlight_pick_up(player_name):
-	get_tree().root.get_node("World/Players/" + player_name).on_pick_up_flashlight()
