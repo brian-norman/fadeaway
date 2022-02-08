@@ -42,14 +42,14 @@ remotesync func shoot(player_id, bullet_position, bullet_rotation_degrees, playe
 
 
 func _on_Gun_body_entered(body):
-	if body.is_in_group("player") and on_floor and is_network_master():
+	if body.is_in_group("player") and on_floor and body.name == str(get_tree().get_network_unique_id()):
 		$PickExplainer.show(position)
 		hovered = true
 		hovering_player_name = body.name
 
 
 func _on_Gun_body_exited(body):
-	if body.is_in_group("player") and on_floor and is_network_master():
+	if body.is_in_group("player") and on_floor and body.name == str(get_tree().get_network_unique_id()):
 		$PickExplainer.hide()
 		hovered = false
 		hovering_player_name = null
