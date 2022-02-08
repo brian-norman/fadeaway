@@ -60,48 +60,42 @@ func _on_Area2D_body_entered(body):
 
 
 func on_pick_up_gun(player_name, node):
+	rpc("gun_pick_up", player_name, node.name)
+
+
+remotesync func gun_pick_up(player_name, node_name):
 	var player = get_tree().root.get_node("World/Players/" + player_name)
-	gamestate.reparent(node, player)
-	rpc("pick_up_gun", get_tree().get_network_unique_id())
+	var gun = get_tree().root.get_node("World/" + node_name)
+	gamestate.reparent(gun, player)
+	pick_up_gun()
 
 
-remotesync func pick_up_gun(player_id):
-	var player = get_tree().root.get_node("World/Players/" + str(player_id))
-	var gun = player.get_node("Gun")
-	gun.on_floor = false
-	gun.position = player.get_node("Flashlight").position	   # TODO: Switch to using an "Held Object Position2D" fixed on the Player
-	player.add_child(gun)
-	player.holding = "gun"
-	drop_flashlight(player)
+func pick_up_gun():
+	$Gun.on_floor = false
+	$Gun.position = $Flashlight.position	   # TODO: Switch to using an "Held Object Position2D" fixed on the Player
+	holding = "gun"
+	drop_flashlight()
 
 
-func drop_flashlight(player):
-	var flashlight = player.get_node("Flashlight")
-	flashlight.on_floor = true
-	flashlight.position = global_position
-	if flashlight.on:
-		flashlight.switch()
-	gamestate.reparent(flashlight, get_node("/root/World/"))
+func drop_gun():
+	$Gun.on_floor = true
+	$Gun.position = global_position
+	gamestate.reparent($Gun, get_node("/root/World/"))
 
 
-func on_pick_up_flashlight():
-	rpc("pick_up_flashlight", get_tree().get_network_unique_id())
+func pick_up_flashlight():
+	$Flashlight.on_floor = false
+	$Flashlight.position = $Gun.position
+	holding = "flashlight"
+	drop_gun()
 
 
-remotesync func pick_up_flashlight(player_id):
-	var player = get_tree().root.get_node("World/Players/" + str(player_id))
-	var flashlight = player.get_node("Flashlight")
-	flashlight.on_floor = false
-	flashlight.position = player.get_node("Gun").position
-	player.holding = "flashlight"
-	drop_gun(player)
-
-
-func drop_gun(player):
-	var gun = player.get_node("Gun")
-	gun.on_floor = true
-	gun.position = global_position
-	gamestate.reparent(gun, get_node("/root/World/"))
+func drop_flashlight():
+	$Flashlight.on_floor = true
+	$Flashlight.position = global_position
+	if $Flashlight.on:
+		$Flashlight.switch()
+	gamestate.reparent($Flashlight, get_node("/root/World/"))
 
 
 remotesync func die(player_id):

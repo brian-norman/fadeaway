@@ -6,7 +6,6 @@ export (float) var SWITCH_RATE = 0.3
 
 var hovered = false
 var hovering_player_name = null
-
 var can_switch = true
 
 signal pick_up(player_name)
@@ -18,7 +17,7 @@ func _ready():
 
 
 func _input(event):
-	if event.is_action_pressed("pick_up") and hovered and is_network_master():
+	if event.is_action_pressed("pick_up") and hovered:
 		emit_signal("pick_up", hovering_player_name, self)
 
 
@@ -40,14 +39,14 @@ remotesync func switch_light():
 
 
 func _on_Flashlight_body_entered(body):
-	if body.is_in_group("player") and on_floor and is_network_master():
+	if body.is_in_group("player") and on_floor and body.name == str(get_tree().get_network_unique_id()):
 		$PickExplainer.show(position)
 		hovered = true
 		hovering_player_name = body.name
 
 
 func _on_Flashlight_body_exited(body):
-	if body.is_in_group("player") and on_floor and is_network_master():
+	if body.is_in_group("player") and on_floor and body.name == str(get_tree().get_network_unique_id()):
 		$PickExplainer.hide()
 		hovered = false
 		hovering_player_name = null
