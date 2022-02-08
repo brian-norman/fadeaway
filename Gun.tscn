@@ -37,7 +37,6 @@ volume_db = -10.0
 script = ExtResource( 6 )
 
 [node name="Panel" type="Panel" parent="PickExplainer"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

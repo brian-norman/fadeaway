@@ -2,9 +2,12 @@ extends Area2D
 
 export (bool) var on_floor = true
 export (bool) var on = false
-export (bool) var hovered = false
-export (bool) var hovering_player_name = null
+export (float) var SWITCH_RATE = 0.3
 
+var hovered = false
+var hovering_player_name = null
+
+var can_switch = true
 
 signal pick_up(player_name)
 
@@ -18,6 +21,15 @@ func _input(event):
 	if event.is_action_pressed("pick_up") and hovered and is_network_master():
 		emit_signal("pick_up", hovering_player_name)
 		queue_free()
+
+
+func _process(_delta):
+	if Input.is_action_pressed("switch_flashlight") and can_switch and not on_floor and is_network_master():
+		print ("swithc")
+		switch()
+		can_switch = false
+		yield(get_tree().create_timer(SWITCH_RATE), "timeout")
+		can_switch = true
 
 
 func switch():

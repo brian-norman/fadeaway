@@ -8,6 +8,21 @@ export (bool) var on_floor = true
 var bullet_speed = 2000
 var can_fire = true
 
+var hovered = false
+var hovering_player_name = null
+
+signal pick_up(player_name)
+
+
+func _ready():
+	$PickExplainer.hide()
+
+
+func _input(event):
+	if event.is_action_pressed("pick_up") and hovered and is_network_master():
+		emit_signal("pick_up", hovering_player_name)
+		queue_free()
+
 
 func _process(_delta):
 	if Input.is_action_pressed("fire") and can_fire and not on_floor and is_network_master():
@@ -27,18 +42,15 @@ remotesync func shoot(player_id, bullet_position, bullet_rotation_degrees, playe
 	get_tree().root.add_child(bulletInstance)
 
 
-func drop(position):
-	var gun = load("res://Gun.tscn").instance()
-	gun.position = position
-	get_tree().root.get_node("World").add_child(gun)
-	queue_free()
-
-
 func _on_Gun_body_entered(body):
 	if body.is_in_group("player") and on_floor and is_network_master():
 		$PickExplainer.show(position)
+		hovered = true
+		hovering_player_name = body.name
 
 
 func _on_Gun_body_exited(body):
 	if body.is_in_group("player") and on_floor and is_network_master():
 		$PickExplainer.hide()
+		hovered = false
+		hovering_player_name = null
