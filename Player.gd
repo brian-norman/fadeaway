@@ -72,15 +72,16 @@ remotesync func pick_up_gun(player_id):
 	gun.position = player.get_node("Flashlight").position	   # TODO: Switch to using an "Held Object Position2D" fixed on the Player
 	player.add_child(gun)
 	player.holding = "gun"
-	drop_flashlight()
+	drop_flashlight(player)
 
 
-func drop_flashlight():
-	$Flashlight.on_floor = true
-	$Flashlight.position = global_position
-	if $Flashlight.on:
-		$Flashlight.switch()
-	gamestate.reparent($Flashlight, get_node("/root/World/"))
+func drop_flashlight(player):
+	var flashlight = player.get_node("Flashlight")
+	flashlight.on_floor = true
+	flashlight.position = global_position
+	if flashlight.on:
+		flashlight.switch()
+	gamestate.reparent(flashlight, get_node("/root/World/"))
 
 
 func on_pick_up_flashlight():
