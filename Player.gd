@@ -12,9 +12,6 @@ puppet var puppet_pos = Vector2()
 puppet var puppet_velocity = Vector2()
 puppet var puppet_look_direction = Vector2()
 
-# Can be "gun" or "flashlight"
-var holding = "gun"
-
 
 func _ready():
 	$Gun.connect("pick_up", self, "on_pick_up_gun")
@@ -54,11 +51,6 @@ func _physics_process(_delta):
 		puppet_pos = position
 
 
-func _on_Area2D_body_entered(body):
-	if body.is_in_group("enemy"):
-		rpc("die", get_tree().get_network_unique_id())
-
-
 func on_pick_up_gun(player_name, node):
 	rpc("gun_pick_up", player_name, node.name)
 
@@ -73,7 +65,6 @@ remotesync func gun_pick_up(player_name, node_name):
 func pick_up_gun():
 	$Gun.on_floor = false
 	$Gun.position = $ObjectPos.position
-	holding = "gun"
 	drop_flashlight()
 
 
@@ -86,7 +77,6 @@ func drop_gun():
 func pick_up_flashlight():
 	$Flashlight.on_floor = false
 	$Flashlight.position = $ObjectPos.position
-	holding = "flashlight"
 	drop_gun()
 
 
@@ -96,6 +86,10 @@ func drop_flashlight():
 	if $Flashlight.on:
 		$Flashlight.switch()
 	gamestate.reparent($Flashlight, get_node("/root/World/"))
+
+
+func _on_enemy_collision():
+	rpc("die", get_tree().get_network_unique_id())
 
 
 remotesync func die(player_id):

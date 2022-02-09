@@ -45,3 +45,8 @@ func die(player_id):
 	else:
 		gamestate.players_kills[player_id] += 1
 	queue_free()
+
+
+func _on_PlayerDetector_body_entered(body):
+	if body.is_in_group("player"):
+		body._on_enemy_collision()

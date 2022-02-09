@@ -1,11 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/art/enemy.png" type="Texture" id=1]
 [ext_resource path="res://Enemy.gd" type="Script" id=2]
 [ext_resource path="res://assets/sound/zombie.wav" type="AudioStream" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 31.0
+radius = 29.0
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 30.0167
 
 [node name="Enemy" type="KinematicBody2D" groups=["enemy"]]
 collision_layer = 16
@@ -29,3 +32,12 @@ points = PoolVector2Array( -2, -17, 10, 15 )
 stream = ExtResource( 3 )
 volume_db = -15.0
 autoplay = true
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+modulate = Color( 0.180392, 0.87451, 0.290196, 1 )
+position = Vector2( 1, 1 )
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
