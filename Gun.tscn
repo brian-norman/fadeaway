@@ -31,7 +31,7 @@ position = Vector2( 30, -3 )
 
 [node name="Gunshot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
-volume_db = -10.0
+volume_db = -15.0
 
 [node name="PickExplainer" type="CanvasLayer" parent="."]
 script = ExtResource( 6 )
