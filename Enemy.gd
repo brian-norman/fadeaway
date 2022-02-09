@@ -49,4 +49,5 @@ func die(player_id):
 
 func _on_PlayerDetector_body_entered(body):
 	if body.is_in_group("player"):
-		body._on_enemy_collision()
+		body._on_enemy_collision(body.name)
+		queue_free()

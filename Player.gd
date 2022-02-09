@@ -88,18 +88,14 @@ func drop_flashlight():
 	gamestate.reparent($Flashlight, get_node("/root/World/"))
 
 
-func _on_enemy_collision():
-	rpc("die", get_tree().get_network_unique_id())
-
-
-remotesync func die(player_id):
-	if int(player_id) == get_tree().get_network_unique_id():
+func _on_enemy_collision(player_name):
+	if int(player_name) == get_tree().get_network_unique_id():
 		position = get_node("/root/World/SpawnPoints/0").position
 		rset("puppet_pos", position)
 		gamestate.deaths += 1
 	else:
 		position = puppet_pos
-		gamestate.players_deaths[player_id] += 1
+		gamestate.players_deaths[int(player_name)] += 1
 
 
 func set_player_name(name):
