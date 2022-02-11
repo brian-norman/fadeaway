@@ -31,8 +31,9 @@ func navigate():
 
 
 func generate_path():
-	path = levelNavigation.get_simple_path(global_position, target_player.global_position)
-	$Line2D.points = path
+	if is_instance_valid(target_player):
+		path = levelNavigation.get_simple_path(global_position, target_player.global_position)
+		$Line2D.points = path
 
 
 func move():

@@ -98,7 +98,7 @@ wait_time = 1.5
 autostart = true
 
 [node name="WaveTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 45.0
 autostart = true
 
 [node name="LightningTimer" type="Timer" parent="."]

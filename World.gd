@@ -23,8 +23,9 @@ func _on_EnemyTimer_timeout():
 	if is_network_master():
 		$EnemySpawnPath/PathFollow2D.offset = randi()
 		var players = get_tree().get_nodes_in_group("player")
-		var target_player_name = players[random_number(0, len(players) - 1)].name
-		rpc("spawn_enemy", $EnemySpawnPath/PathFollow2D.position, target_player_name)
+		if players.size() > 0:
+			var target_player_name = players[random_number(0, len(players) - 1)].name
+			rpc("spawn_enemy", $EnemySpawnPath/PathFollow2D.position, target_player_name)
 
 
 func _on_LightningTimer_timeout():
