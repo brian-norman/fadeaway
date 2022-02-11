@@ -85,4 +85,9 @@ func refresh_lobby():
 
 
 func _on_start_pressed():
+	$TitleMusic.stop()
 	gamestate.begin_game()
+
+
+func _on_TitleScreenTimer_timeout():
+	$Connect.show()

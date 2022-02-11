@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/epic-unease.mp3-ab70e97625aed54784d46ea54c86d23e.mp3str"
+
+[deps]
+
+source_file="res://assets/sound/epic-unease.mp3"
+dest_files=[ "res://.import/epic-unease.mp3-ab70e97625aed54784d46ea54c86d23e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
