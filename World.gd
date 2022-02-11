@@ -82,3 +82,7 @@ remotesync func flashlight_pick_up(player_name, node_name):
 
 func random_number(from: int, to: int):
 	return range(from, to + 1)[randi() % range(from, to + 1).size()]
+
+
+func _on_WaveTimer_timeout():
+	$EnemyTimer.wait_time = max(0.3, $EnemyTimer.wait_time - 0.1)
