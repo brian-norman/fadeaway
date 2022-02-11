@@ -50,16 +50,6 @@ remotesync func lightning(lightning_brightness_array, lightning_delay_array):
 	$LightningTimer.start()
 
 
-func _on_House_body_entered(body):
-	if body.is_in_group("player") and int(body.name) == get_tree().get_network_unique_id():
-		$House/HouseLight.enabled = true
-
-
-func _on_House_body_exited(body):
-	if body.is_in_group("player") and int(body.name) == get_tree().get_network_unique_id():
-		$House/HouseLight.enabled = false
-
-
 remotesync func spawn_enemy(position, target_player_name):
 	var enemy = Enemy.instance()
 	enemy.position = position
@@ -87,3 +77,23 @@ func random_number(from: int, to: int):
 
 func _on_WaveTimer_timeout():
 	$EnemyTimer.wait_time = max(0.3, $EnemyTimer.wait_time - 0.1)
+
+
+func _on_House_body_entered(body):
+	if body.is_in_group("player") and int(body.name) == get_tree().get_network_unique_id():
+		$House/HouseLight.enabled = true
+
+
+func _on_House_body_exited(body):
+	if body.is_in_group("player") and int(body.name) == get_tree().get_network_unique_id():
+		$House/HouseLight.enabled = false
+
+
+func _on_Shed_body_entered(body):
+	if body.is_in_group("player") and int(body.name) == get_tree().get_network_unique_id():
+		$Shed/ShedLight.enabled = true
+
+
+func _on_Shed_body_exited(body):
+	if body.is_in_group("player") and int(body.name) == get_tree().get_network_unique_id():
+		$Shed/ShedLight.enabled = false
