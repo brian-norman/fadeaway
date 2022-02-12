@@ -16,6 +16,7 @@ func _ready():
 
 
 func _on_host_pressed():
+	$TitleScreenTimer.stop()
 	if $Connect/Name.text == "":
 		$Connect/ErrorLabel.text = "Invalid name!"
 		return
@@ -30,6 +31,7 @@ func _on_host_pressed():
 
 
 func _on_join_pressed():
+	$TitleScreenTimer.stop()
 	if $Connect/Name.text == "":
 		$Connect/ErrorLabel.text = "Invalid name!"
 		return

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://assets/art/player.png" type="Texture" id=1]
+[ext_resource path="res://assets/art/players.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
 [ext_resource path="res://Gun.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/font/typewriter.tres" type="DynamicFont" id=4]
@@ -33,7 +33,10 @@ __meta__ = {
 
 [node name="Sprite" type="Sprite" parent="."]
 rotation = 1.5708
+scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 32, 32 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-
+export (int) var player_number = 0	   # Can be [0, 1, 2, 3]
 export (PackedScene) var Flashlight
 export (PackedScene) var Gun
 
@@ -16,6 +16,7 @@ puppet var puppet_look_direction = Vector2()
 func _ready():
 	$Gun.connect("pick_up", self, "on_pick_up_gun")
 	puppet_pos = position
+	$Sprite.region_rect = Rect2(player_number * 32, 0, 32, 32)
 
 
 func _process(_delta):
