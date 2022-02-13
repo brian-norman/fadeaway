@@ -130,7 +130,7 @@ rotation = 1.5708
 color = Color( 0, 0, 0, 1 )
 
 [node name="LevelLight" type="Light2D" parent="."]
-position = Vector2( 960, 544 )
+position = Vector2( 960, 545 )
 texture = ExtResource( 5 )
 
 [node name="House" type="Area2D" parent="."]
@@ -141,23 +141,25 @@ position = Vector2( 54.5, 34 )
 shape = SubResource( 9 )
 
 [node name="HouseLight" type="Light2D" parent="House"]
-position = Vector2( 58, 62 )
-scale = Vector2( 5, 5 )
+position = Vector2( 56.5, 33.5 )
+scale = Vector2( 0.131771, 0.200926 )
 enabled = false
+texture = ExtResource( 5 )
+energy = 0.7
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 
 [node name="0" type="Position2D" parent="SpawnPoints"]
-position = Vector2( 312, 256 )
+position = Vector2( 259, 233 )
 
 [node name="1" type="Position2D" parent="SpawnPoints"]
-position = Vector2( 389, 256 )
+position = Vector2( 399, 238 )
 
 [node name="2" type="Position2D" parent="SpawnPoints"]
-position = Vector2( 272, 336 )
+position = Vector2( 258, 350 )
 
 [node name="3" type="Position2D" parent="SpawnPoints"]
-position = Vector2( 352, 336 )
+position = Vector2( 402, 348 )
 
 [node name="Players" type="Node2D" parent="."]
 
@@ -173,9 +175,10 @@ position = Vector2( 1471, 863.5 )
 shape = SubResource( 10 )
 
 [node name="ShedLight" type="Light2D" parent="Shed"]
-position = Vector2( 1466, 852 )
-scale = Vector2( 4, 2 )
+position = Vector2( 1475, 863 )
+scale = Vector2( 0.110417, 0.124074 )
 enabled = false
+texture = ExtResource( 5 )
 
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_EnemyTimer_timeout"]
 [connection signal="timeout" from="WaveTimer" to="." method="_on_WaveTimer_timeout"]

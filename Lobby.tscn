@@ -59,7 +59,7 @@ autostart = true
 [node name="TitleScreen" type="AnimatedSprite" parent="."]
 position = Vector2( 960, 540 )
 frames = SubResource( 7 )
-frame = 3
+frame = 4
 playing = true
 
 [node name="TitleMusic" type="AudioStreamPlayer" parent="."]
